@@ -1,63 +1,81 @@
 import { Button } from '@chakra-ui/button';
-import { Checkbox } from '@chakra-ui/checkbox';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import { GridItem, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/layout';
-import { Select } from '@chakra-ui/select';
+import { Box, Flex, Text } from '@chakra-ui/layout';
+import { Textarea } from '@chakra-ui/textarea';
 import React from 'react';
+import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
+import { BsQuestionCircle } from 'react-icons/bs';
+import { infos } from '../../../constants';
+import CardInfo from '../../CardInfos/CardInfo';
 
 export default function Education() {
   return (
-    <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
-      <VStack spacing={3} alignItems="flex-start">
-        <Heading size="2xl">Your details</Heading>
-        <Text>If you already have an account, click here to log in.</Text>
-      </VStack>
-      <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
-        <GridItem colSpan={1}>
-          <FormControl>
-            <FormLabel>First Name</FormLabel>
-            <Input placeholder="John" />
-          </FormControl>
-        </GridItem>
-        <GridItem colSpan={1}>
-          <FormControl>
-            <FormLabel>Last Name</FormLabel>
-            <Input placeholder="Doe" />
-          </FormControl>
-        </GridItem>
-        <GridItem colSpan={2}>
-          <FormControl>
-            <FormLabel>Address</FormLabel>
-            <Input placeholder="Blvd. Broken Dreams 21" />
-          </FormControl>
-        </GridItem>
-        <GridItem colSpan={1}>
-          <FormControl>
-            <FormLabel>City</FormLabel>
-            <Input placeholder="San Francisco" />
-          </FormControl>
-        </GridItem>
-        <GridItem colSpan={1}>
-          <FormControl>
-            <FormLabel>Country</FormLabel>
-            <Select>
-              <option value="usa">United States of America</option>
-              <option value="uae">United Arab Emirates</option>
-              <option value="nmk">North Macedonia</option>
-              <option value="de">Germany</option>
-            </Select>
-          </FormControl>
-        </GridItem>
-        <GridItem colSpan={2}>
-          <Checkbox defaultChecked>Ship to billing address.</Checkbox>
-        </GridItem>
-        <GridItem colSpan={2}>
-          <Button size="lg" w="full">
-            Place Order
+    <Box
+      width="50%"
+      borderBottomWidth="1px"
+      as="section"
+      className="shadow-md "
+      bg="white"
+      px={{
+        md: '5',
+      }}
+    >
+      <Flex align="center" justify="space-between" py="4" mb="5">
+        <Text as="h3" fontWeight="bold" fontSize="lg">
+          Education
+        </Text>
+        <Box>
+          <Button
+            variant="outline"
+            minW="20"
+            mr="3"
+            leftIcon={<BsQuestionCircle color="#0d47a1" />}
+          >
+            Info
           </Button>
-        </GridItem>
-      </SimpleGrid>
-    </VStack>
+          <Button
+            variant="outline"
+            minW="20"
+            leftIcon={<AiOutlineClear color="#0d47a1" />}
+          >
+            Clear
+          </Button>
+        </Box>
+      </Flex>
+      <Flex align="center" justify="space-between" mb="5">
+        <FormControl id="schoolName" mr="10px" isRequired>
+          <FormLabel fontSize="sm">School Name</FormLabel>
+          <Input type="text" />
+        </FormControl>
+        <FormControl id="fieldStudy" isRequired>
+          <FormLabel fontSize="sm">Field of Study</FormLabel>
+          <Input type="text" />
+        </FormControl>
+      </Flex>
+      <Flex align="center" justify="space-between" mb="2">
+        <FormControl id="country" mr="10px" isRequired>
+          <FormLabel fontSize="sm">Country</FormLabel>
+          <Input type="text" />
+        </FormControl>
+        <FormControl id="city" isRequired>
+          <FormLabel fontSize="sm">City</FormLabel>
+          <Input type="text" />
+        </FormControl>
+      </Flex>
+
+      <Flex align="center" justify="space-between" mb="5">
+        <FormControl id="description" isRequired>
+          <FormLabel fontSize="sm">Description</FormLabel>
+          <Textarea placeholder="Description" size="sm" />
+        </FormControl>
+      </Flex>
+      <Flex align="center" justify="space-between" mb="5">
+        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
+          Save Education
+        </Button>
+      </Flex>
+      <CardInfo cardTitle="Education" infos={infos} {...infos} />
+    </Box>
   );
 }

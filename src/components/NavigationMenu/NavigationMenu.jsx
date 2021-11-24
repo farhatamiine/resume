@@ -1,9 +1,9 @@
-import { GridItem, SimpleGrid, Text, VStack } from '@chakra-ui/layout';
 import React from 'react';
 import { DiYeoman } from 'react-icons/di';
 import { GiBookmarklet, GiMedal, GiTiedScroll } from 'react-icons/gi';
 import { IoBriefcaseSharp, IoLanguageSharp } from 'react-icons/io5';
 import { MdSportsEsports } from 'react-icons/md';
+import styled from 'styled-components';
 import CardButton from '../CardButton/CardButton';
 
 const cardSection = [
@@ -40,22 +40,38 @@ const cardSection = [
     name: 'Hobbies',
   },
 ];
-export default function NavigationMenu() {
+export default function NavigationMenu({ title, description }) {
   return (
-    <VStack w="50%" h="full" p={10} spacing={6} align="flex-start">
-      <VStack alignItems="flex-start" spacing={3}>
-        <Text>If the price is too hard on your eyes, </Text>
-      </VStack>
-
-      <SimpleGrid columns={2} columnGap={3} rowGap={6} spacing={4} w="full">
+    <Container flex="column" className="p-3 rounded-md  shadow-md ">
+      <Container flex="column">
+        <Head>{title}</Head>
+        <Text>{description}</Text>
+      </Container>
+      <div className="grid grid-cols-2 gap-2">
         {cardSection.map(e => {
-          return (
-            <GridItem colSpan={1}>
-              <CardButton cardName={e.name} icon={e.icon} />
-            </GridItem>
-          );
+          return <CardButton icon={e.icon} cardName={e.name} />;
         })}
-      </SimpleGrid>
-    </VStack>
+      </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  margin: 5px 10px;
+  align-items: flex-start;
+  width: auto;
+  height: fit-content;
+  flex-direction: ${props => props.flex};
+`;
+
+const Head = styled.h1`
+  font-weight: 600;
+  font-size: 17;
+  color: #000;
+`;
+
+const Text = styled.p`
+  font-size: 14px;
+  color: #9e9e9e;
+`;
