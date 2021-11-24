@@ -19,6 +19,7 @@ export default function Resume() {
         description="Fill the section one by one"
       />
       <Routes>
+        <Route path="/" element={<PersonalInfo title="Personal Info" />} />
         <Route path="/education" element={<Education title="Education" />} />
         <Route path="/summary" element={<Summary title="Summary" />} />
         <Route
