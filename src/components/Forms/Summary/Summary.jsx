@@ -9,7 +9,7 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { infos } from '../../../constants';
 import CardInfo from '../../CardInfos/CardInfo';
 
-export default function Education({ title }) {
+export default function Summary({ title }) {
   return (
     <Box
       width="50%"
