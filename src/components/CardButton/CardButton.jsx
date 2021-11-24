@@ -22,7 +22,7 @@ export default function CardButton(props) {
       border="1px solid #0D47A1"
       direction="column"
       overflow="hidden"
-      svgColor={`${routeName === pathname ? 'white' : '#0D47A1'}`}
+      svgcolor={`${routeName === pathname ? 'white' : '#0D47A1'}`}
       className={`${
         routeName === pathname ? 'bg-blue text-white' : 'bg-white'
       }`}
@@ -46,7 +46,7 @@ const CardIcon = styled(Flex)`
   height: ${props => props.height};
   transition: all 0.5s ease-in;
   svg {
-    fill: ${props => props.svgColor};
+    fill: ${props => props.svgcolor};
   }
   &:hover {
     background-color: #0d47a1;

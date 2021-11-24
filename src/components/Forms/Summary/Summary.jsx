@@ -1,13 +1,10 @@
 import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
-import { Input } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Textarea } from '@chakra-ui/textarea';
 import React from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
-import { infos } from '../../../constants';
-import CardInfo from '../../CardInfos/CardInfo';
 
 export default function Summary({ title }) {
   return (
@@ -44,38 +41,16 @@ export default function Summary({ title }) {
         </Box>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
-        <FormControl id="schoolName" mr="10px" isRequired>
-          <FormLabel fontSize="sm">School Name</FormLabel>
-          <Input type="text" />
-        </FormControl>
-        <FormControl id="fieldStudy" isRequired>
-          <FormLabel fontSize="sm">Field of Study</FormLabel>
-          <Input type="text" />
-        </FormControl>
-      </Flex>
-      <Flex align="center" justify="space-between" mb="2">
-        <FormControl id="country" mr="10px" isRequired>
-          <FormLabel fontSize="sm">Country</FormLabel>
-          <Input type="text" />
-        </FormControl>
-        <FormControl id="city" isRequired>
-          <FormLabel fontSize="sm">City</FormLabel>
-          <Input type="text" />
-        </FormControl>
-      </Flex>
-
-      <Flex align="center" justify="space-between" mb="5">
-        <FormControl id="description" isRequired>
-          <FormLabel fontSize="sm">Description</FormLabel>
-          <Textarea placeholder="Description" size="sm" />
+        <FormControl id="summary" mr="10px" isRequired>
+          <FormLabel fontSize="sm">Tell us about yourself</FormLabel>
+          <Textarea rows="10" />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
         <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
-          Save Education
+          Save summary
         </Button>
       </Flex>
-      <CardInfo cardTitle="Education" infos={infos} {...infos} />
     </Box>
   );
 }
