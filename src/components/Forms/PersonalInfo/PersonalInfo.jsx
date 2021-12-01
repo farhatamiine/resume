@@ -5,8 +5,36 @@ import { Box, Flex, Text } from '@chakra-ui/layout';
 import React from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function PersonalInfo({ title }) {
+  const currentPersonlInfo = useSelector(state => state.personalInfo);
+
+  const [personalInfo, setPersonalInfo] = React.useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    profession: '',
+    city: '',
+    state: '',
+    zipcode: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const savePersonalInfo = () => {
+    console.log('savePersonalInfo', personalInfo);
+    dispatch(setPersonalInfo(user));
+  };
+
+  const handleChange = e => {
+    setPersonalInfo({
+      ...personalInfo,
+      [e.target.id]: e.target.value,
+    });
+  };
+
   return (
     <Box
       width="50%"
@@ -43,47 +71,52 @@ export default function PersonalInfo({ title }) {
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="first_name" mr="10px" isRequired>
           <FormLabel fontSize="sm">First Name</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="last_name" isRequired>
           <FormLabel fontSize="sm">Last Name</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="email" mr="10px" isRequired>
           <FormLabel fontSize="sm">Email</FormLabel>
-          <Input type="email" />
+          <Input type="email" onChange={handleChange} />
         </FormControl>
         <FormControl id="phone" isRequired>
           <FormLabel fontSize="sm">Phone Number</FormLabel>
-          <Input type="tel" />
+          <Input type="tel" onChange={handleChange} />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="profession" isRequired>
           <FormLabel fontSize="sm">Profession</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-around" mb="2">
         <FormControl id="city" isRequired mr="10px">
           <FormLabel fontSize="sm">City</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
         <Flex align="center" justify="space-between">
           <FormControl id="state" mr="10px" isRequired>
             <FormLabel fontSize="sm">Province</FormLabel>
-            <Input type="text" />
+            <Input type="text" onChange={handleChange} />
           </FormControl>
           <FormControl id="zipcode" isRequired>
             <FormLabel fontSize="sm">Zip Code</FormLabel>
-            <Input type="text" />
+            <Input type="text" onChange={handleChange} />
           </FormControl>
         </Flex>
       </Flex>
       <Flex align="center" justify="space-between" my="5">
-        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
+        <Button
+          colorScheme="blue"
+          onClick={savePersonalInfo}
+          variant="outline"
+          leftIcon={<AiFillSave />}
+        >
           Save my Information
         </Button>
       </Flex>

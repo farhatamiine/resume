@@ -10,6 +10,7 @@ import PersonalInfo from '../../components/Forms/PersonalInfo/PersonalInfo';
 import Skills from '../../components/Forms/Skills/Skills';
 import Summary from '../../components/Forms/Summary/Summary';
 import NavigationMenu from '../../components/NavigationMenu/NavigationMenu';
+import SettingsMenu from '../../components/SettingsMenu/SettingsMenu';
 
 export default function Resume() {
   return (
@@ -38,7 +39,7 @@ export default function Resume() {
         />
         <Route path="/hobbies" element={<Hobbies title="Hobbies" />} />
       </Routes>
-      <NavigationMenu
+      <SettingsMenu
         title="Parameters"
         description="Change color,fonts and template"
       />
