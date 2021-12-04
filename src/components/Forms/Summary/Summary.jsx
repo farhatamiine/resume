@@ -5,8 +5,25 @@ import { Textarea } from '@chakra-ui/textarea';
 import React from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { saveSummary } from '../../../features/personalInfo/PersonalnfoSlice';
 
 export default function Summary({ title }) {
+  const [summary, setSummary] = React.useState('');
+
+  const handleChange = e => {
+    setSummary({
+      ...summary,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const dispatch = useDispatch();
+
+  const saveData = () => {
+    dispatch(saveSummary(summary));
+  };
+
   return (
     <Box
       width="50%"
@@ -43,11 +60,16 @@ export default function Summary({ title }) {
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="summary" mr="10px" isRequired>
           <FormLabel fontSize="sm">Tell us about yourself</FormLabel>
-          <Textarea rows="10" />
+          <Textarea rows="10" onChange={handleChange} />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
-        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          onClick={saveData}
+          leftIcon={<AiFillSave />}
+        >
           Save summary
         </Button>
       </Flex>

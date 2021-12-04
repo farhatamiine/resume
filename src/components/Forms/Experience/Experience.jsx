@@ -6,10 +6,27 @@ import { Textarea } from '@chakra-ui/textarea';
 import React from 'react';
 import { AiFillSave, AiOutlineCalendar, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { infos } from '../../../constants';
+import { saveExperience } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
 export default function Experience({ title }) {
+  const [experience, setExperience] = React.useState({});
+
+  const handleChange = e => {
+    setExperience({
+      ...experience,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const dispatch = useDispatch();
+
+  const saveData = () => {
+    dispatch(saveExperience(experience));
+  };
+
   return (
     <Box
       width="50%"
@@ -46,21 +63,21 @@ export default function Experience({ title }) {
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="job_title" mr="10px" isRequired>
           <FormLabel fontSize="sm">Job Title</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="employer" isRequired>
           <FormLabel fontSize="sm">Employer</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="2">
         <FormControl id="country" mr="10px" isRequired>
           <FormLabel fontSize="sm">Country</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="city" isRequired>
           <FormLabel fontSize="sm">City</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="2">
@@ -71,7 +88,11 @@ export default function Experience({ title }) {
               pointerEvents="none"
               children={<AiOutlineCalendar color="gray.300" />}
             />
-            <Input type="tel" placeholder="Start Date" />
+            <Input
+              type="date"
+              onChange={handleChange}
+              placeholder="Start Date"
+            />
           </InputGroup>
         </FormControl>
         <FormControl id="country" mr="10px" isRequired>
@@ -81,7 +102,7 @@ export default function Experience({ title }) {
               pointerEvents="none"
               children={<AiOutlineCalendar color="gray.300" />}
             />
-            <Input type="tel" placeholder="End Date" />
+            <Input type="date" onChange={handleChange} placeholder="End Date" />
           </InputGroup>
         </FormControl>
       </Flex>
@@ -89,11 +110,20 @@ export default function Experience({ title }) {
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="description" isRequired>
           <FormLabel fontSize="sm">Description</FormLabel>
-          <Textarea placeholder="Description" size="sm" />
+          <Textarea
+            onChange={handleChange}
+            placeholder="Description"
+            size="sm"
+          />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
-        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
+        <Button
+          colorScheme="blue"
+          onClick={saveData}
+          variant="outline"
+          leftIcon={<AiFillSave />}
+        >
           Save Education
         </Button>
       </Flex>

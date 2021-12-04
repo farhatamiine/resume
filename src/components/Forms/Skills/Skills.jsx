@@ -1,26 +1,45 @@
 import { Button } from '@chakra-ui/button';
-import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+} from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Tag, TagCloseButton, TagLabel } from '@chakra-ui/tag';
+import { useToast } from '@chakra-ui/toast';
 import React, { useEffect, useState } from 'react';
-import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
+import { AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { saveSkills } from '../../../features/personalInfo/PersonalnfoSlice';
 
 export default function Skills({ title }) {
-  const [skills, setSkills] = useState([]);
-
+  const skills = useSelector(state => state.personalInfo.skills);
   const [skill, setSkill] = useState('');
+
+  const dispatch = useDispatch();
+  const toast = useToast();
 
   const addSkill = event => {
     if (event.key === 'Enter') {
-      skills.push(skill);
-      setSkill('');
+      dispatch(saveSkills(skill));
+      toast({
+        title: `${skill} added !`,
+        description: 'You can add more skills later.',
+        status: 'success',
+        duration: 1000,
+        position: 'top-right',
+        isClosable: true,
+      });
     }
   };
-
-  useEffect(() => {}, [skills]);
+  useEffect(() => {
+    if (skills.length > 0) {
+      setSkill('');
+    }
+  }, [skills]);
 
   return (
     <Box
@@ -64,31 +83,27 @@ export default function Skills({ title }) {
             onKeyDown={addSkill}
             onInput={e => setSkill(e.target.value)}
           />
+          <FormHelperText>🤹 Tap enter to add the skill </FormHelperText>
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
         <TagContainer>
-          {skills.map((skill, index) => (
-            <Tag
-              size="lg"
-              key={index}
-              mr="5px"
-              mb="5px"
-              borderRadius="full"
-              variant="solid"
-              colorScheme="blue"
-            >
-              <TagLabel>{skill}</TagLabel>
-              <TagCloseButton />
-            </Tag>
-          ))}
+          {skills.length > 0 &&
+            skills.map((skill, index) => (
+              <Tag
+                size="lg"
+                key={index}
+                mr="5px"
+                mb="5px"
+                borderRadius="full"
+                variant="solid"
+                colorScheme="blue"
+              >
+                <TagLabel>{skill}</TagLabel>
+                <TagCloseButton />
+              </Tag>
+            ))}
         </TagContainer>
-      </Flex>
-
-      <Flex align="center" justify="space-between" mb="5">
-        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
-          Save skills
-        </Button>
       </Flex>
     </Box>
   );

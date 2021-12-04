@@ -7,10 +7,8 @@ import App from './App';
 import './assets/styles/styles.css';
 import configureStore from './redux/configureStore';
 
-const store = configureStore();
-
 ReactDOM.render(
-  <ReduxProvider store={store}>
+  <ReduxProvider store={configureStore}>
     <BrowserRouter>
       <StrictMode>
         <ColorModeScript />

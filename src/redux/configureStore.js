@@ -1,13 +1,8 @@
-import { applyMiddleware, compose, createStore } from 'redux';
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
-import rootReducer from './reducer';
+import { configureStore } from '@reduxjs/toolkit';
+import personalInfoReducer from '../features/personalInfo/PersonalnfoSlice';
 
-export default function configureStore(initialState) {
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  return createStore(
-    rootReducer,
-    initialState,
-    composeEnhancers(applyMiddleware(reduxImmutableStateInvariant()))
-  );
-}
+export default configureStore({
+  reducer: {
+    personalInfo: personalInfoReducer,
+  },
+});

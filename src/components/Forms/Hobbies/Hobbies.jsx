@@ -1,26 +1,47 @@
 import { Button } from '@chakra-ui/button';
-import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+} from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Tag, TagCloseButton, TagLabel } from '@chakra-ui/tag';
+import { useToast } from '@chakra-ui/toast';
 import React, { useEffect, useState } from 'react';
-import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
+import { AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { saveHobbies } from '../../../features/personalInfo/PersonalnfoSlice';
 
 export default function Hobbies({ title }) {
-  const [hobbies, setHobbie] = useState([]);
+  const hobbies = useSelector(state => state.personalInfo.hobbies);
+  const toast = useToast();
 
   const [hobby, setHobby] = useState('');
 
+  const dispatch = useDispatch();
+
   const addHobby = event => {
     if (event.key === 'Enter') {
-      hobbies.push(hobby);
-      setHobby('');
+      dispatch(saveHobbies(hobby));
+      toast({
+        title: `${hobby} added !`,
+        description: 'You can add more hobbies later.',
+        status: 'success',
+        duration: 1000,
+        position: 'top-right',
+        isClosable: true,
+      });
     }
   };
 
-  useEffect(() => {}, [hobbies]);
+  useEffect(() => {
+    if (hobbies.length > 0) {
+      setHobby('');
+    }
+  }, [hobbies]);
 
   return (
     <Box
@@ -64,31 +85,27 @@ export default function Hobbies({ title }) {
             onKeyDown={addHobby}
             onInput={e => setHobby(e.target.value)}
           />
+          <FormHelperText>🪂 Tap enter to add the hobby </FormHelperText>
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
         <TagContainer>
-          {hobbies.map((hobby, index) => (
-            <Tag
-              size="lg"
-              key={index}
-              mr="5px"
-              mb="5px"
-              borderRadius="full"
-              variant="solid"
-              colorScheme="blue"
-            >
-              <TagLabel>{hobby}</TagLabel>
-              <TagCloseButton />
-            </Tag>
-          ))}
+          {hobbies.length > 0 &&
+            hobbies.map((hobby, index) => (
+              <Tag
+                size="lg"
+                key={index}
+                mr="5px"
+                mb="5px"
+                borderRadius="full"
+                variant="solid"
+                colorScheme="blue"
+              >
+                <TagLabel>{hobby}</TagLabel>
+                <TagCloseButton onClick={e => console.log(index)} />
+              </Tag>
+            ))}
         </TagContainer>
-      </Flex>
-
-      <Flex align="center" justify="space-between" mb="5">
-        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
-          Save Hobbies
-        </Button>
       </Flex>
     </Box>
   );

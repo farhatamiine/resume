@@ -2,13 +2,14 @@ import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
+import { savePersonalInfo } from '../../../features/personalInfo/PersonalnfoSlice';
 
 export default function PersonalInfo({ title }) {
-  const currentPersonlInfo = useSelector(state => state.personalInfo);
+  const currentPersonlInfo = useSelector(state => state.personalInfo.userInfo);
 
   const [personalInfo, setPersonalInfo] = React.useState({
     first_name: '',
@@ -21,11 +22,14 @@ export default function PersonalInfo({ title }) {
     zipcode: '',
   });
 
+  useEffect(() => {
+    console.log('Current Personal Info', currentPersonlInfo);
+  }, [currentPersonlInfo]);
+
   const dispatch = useDispatch();
 
-  const savePersonalInfo = () => {
-    console.log('savePersonalInfo', personalInfo);
-    dispatch(setPersonalInfo(user));
+  const saveInfo = () => {
+    dispatch(savePersonalInfo(personalInfo));
   };
 
   const handleChange = e => {
@@ -113,7 +117,7 @@ export default function PersonalInfo({ title }) {
       <Flex align="center" justify="space-between" my="5">
         <Button
           colorScheme="blue"
-          onClick={savePersonalInfo}
+          onClick={saveInfo}
           variant="outline"
           leftIcon={<AiFillSave />}
         >

@@ -6,10 +6,27 @@ import { Textarea } from '@chakra-ui/textarea';
 import React from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { infos } from '../../../constants';
+import { saveEducation } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
 export default function Education({ title }) {
+  const [education, setEducation] = React.useState({});
+
+  const handleChange = e => {
+    setEducation({
+      ...education,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const dispatch = useDispatch();
+
+  const saveData = () => {
+    dispatch(saveEducation(education));
+  };
+
   return (
     <Box
       width="50%"
@@ -50,28 +67,37 @@ export default function Education({ title }) {
         </FormControl>
         <FormControl id="fieldStudy" isRequired>
           <FormLabel fontSize="sm">Field of Study</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="2">
         <FormControl id="country" mr="10px" isRequired>
           <FormLabel fontSize="sm">Country</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="city" isRequired>
           <FormLabel fontSize="sm">City</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
 
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="description" isRequired>
           <FormLabel fontSize="sm">Description</FormLabel>
-          <Textarea placeholder="Description" size="sm" />
+          <Textarea
+            onChange={handleChange}
+            placeholder="Description"
+            size="sm"
+          />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
-        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
+        <Button
+          colorScheme="blue"
+          onClick={saveData}
+          variant="outline"
+          leftIcon={<AiFillSave />}
+        >
           Save Education
         </Button>
       </Flex>

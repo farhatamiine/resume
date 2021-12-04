@@ -6,10 +6,27 @@ import { Select } from '@chakra-ui/select';
 import React from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { infos } from '../../../constants';
+import { saveLanguages } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
 export default function Languages({ title }) {
+  const [language, setLanguage] = React.useState({});
+
+  const handleChange = e => {
+    setLanguage({
+      ...language,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const dispatch = useDispatch();
+
+  const saveData = () => {
+    dispatch(saveLanguages(language));
+  };
+
   return (
     <Box
       width="50%"
@@ -46,14 +63,14 @@ export default function Languages({ title }) {
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="languages" mr="10px" isRequired>
           <FormLabel fontSize="sm">language</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
 
       <Flex align="center" justify="space-between" my="5">
         <FormControl id="level" mr="10px" isRequired>
           <FormLabel fontSize="sm">language level</FormLabel>
-          <Select placeholder="Select option">
+          <Select onChange={handleChange} placeholder="Select option">
             <option value="Notions">Notions</option>
             <option value="Limited professional competence">
               Limited professional competence
@@ -71,7 +88,12 @@ export default function Languages({ title }) {
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
-        <Button colorScheme="blue" variant="outline" leftIcon={<AiFillSave />}>
+        <Button
+          colorScheme="blue"
+          onClick={saveData}
+          variant="outline"
+          leftIcon={<AiFillSave />}
+        >
           Save Languages
         </Button>
       </Flex>
