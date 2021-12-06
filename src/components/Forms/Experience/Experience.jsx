@@ -11,7 +11,7 @@ import { infos } from '../../../constants';
 import { saveExperience } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
-export default function Experience({ title }) {
+export default function Experience({ title, className }) {
   const [experience, setExperience] = React.useState({});
 
   const handleChange = e => {
@@ -29,10 +29,9 @@ export default function Experience({ title }) {
 
   return (
     <Box
-      width="50%"
       borderBottomWidth="1px"
       as="section"
-      className="shadow-md "
+      className={`${className} p-3 rounded-md  shadow-md `}
       bg="white"
       px={{
         md: '5',
@@ -81,7 +80,7 @@ export default function Experience({ title }) {
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="2">
-        <FormControl id="country" mr="10px" isRequired>
+        <FormControl id="start" mr="10px" isRequired>
           <FormLabel fontSize="sm">Start Date</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -95,7 +94,7 @@ export default function Experience({ title }) {
             />
           </InputGroup>
         </FormControl>
-        <FormControl id="country" mr="10px" isRequired>
+        <FormControl id="end" mr="10px" isRequired>
           <FormLabel fontSize="sm">End Date</FormLabel>
           <InputGroup>
             <InputLeftElement

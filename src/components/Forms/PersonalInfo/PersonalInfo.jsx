@@ -8,7 +8,7 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { savePersonalInfo } from '../../../features/personalInfo/PersonalnfoSlice';
 
-export default function PersonalInfo({ title }) {
+export default function PersonalInfo({ title, className }) {
   const currentPersonlInfo = useSelector(state => state.personalInfo.userInfo);
 
   const [personalInfo, setPersonalInfo] = React.useState({
@@ -41,10 +41,9 @@ export default function PersonalInfo({ title }) {
 
   return (
     <Box
-      width="50%"
+      className={`${className} p-3 rounded-md  shadow-md `}
       borderBottomWidth="1px"
       as="section"
-      className="shadow-md "
       bg="white"
       px={{
         md: '5',

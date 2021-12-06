@@ -49,9 +49,12 @@ const cardSection = [
     routeName: '/hobbies',
   },
 ];
-export default function NavigationMenu({ title, description }) {
+export default function NavigationMenu({ title, description, className }) {
   return (
-    <Container flex="column" className="p-3 rounded-md  shadow-md ">
+    <Container
+      flex="column"
+      className={`${className} p-3 rounded-md  shadow-md `}
+    >
       <Container flex="column">
         <Head>{title}</Head>
         <Text>{description}</Text>

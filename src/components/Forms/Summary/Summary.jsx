@@ -8,7 +8,7 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { saveSummary } from '../../../features/personalInfo/PersonalnfoSlice';
 
-export default function Summary({ title }) {
+export default function Summary({ title, className }) {
   const [summary, setSummary] = React.useState('');
 
   const handleChange = e => {
@@ -26,10 +26,9 @@ export default function Summary({ title }) {
 
   return (
     <Box
-      width="50%"
+      className={`${className} p-3 rounded-md  shadow-md `}
       borderBottomWidth="1px"
       as="section"
-      className="shadow-md "
       bg="white"
       px={{
         md: '5',

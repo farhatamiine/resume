@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/layout';
+import { Box } from '@chakra-ui/layout';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import Certificate from '../../components/Forms/Certificate/Certificate';
@@ -14,35 +14,88 @@ import SettingsMenu from '../../components/SettingsMenu/SettingsMenu';
 
 export default function Resume() {
   return (
-    <Flex mx="auto" width="100%">
+    <Box mx="auto" className="grid grid-cols-12 gap-4">
       <NavigationMenu
+        className="col-span-12 lg:col-span-3"
         title="Resume Sections"
         description="Fill the section one by one"
       />
       <Routes>
-        <Route path="/" element={<PersonalInfo title="Personal Info" />} />
-        <Route path="/education" element={<Education title="Education" />} />
-        <Route path="/summary" element={<Summary title="Summary" />} />
+        <Route
+          path="/"
+          element={
+            <PersonalInfo
+              className="col-span-12 lg:col-span-6"
+              title="Personal Info"
+            />
+          }
+        />
+        <Route
+          path="/education"
+          element={
+            <Education
+              className="col-span-12 lg:col-span-6"
+              title="Education"
+            />
+          }
+        />
+        <Route
+          path="/summary"
+          element={
+            <Summary className="col-span-12 lg:col-span-6" title="Summary" />
+          }
+        />
         <Route
           path="/work-experience"
-          element={<Experience title="Work Experience" />}
+          element={
+            <Experience
+              className="col-span-12 lg:col-span-6"
+              title="Work Experience"
+            />
+          }
         />
         <Route
           path="/personal-info"
-          element={<PersonalInfo title="Personal Info" />}
+          element={
+            <PersonalInfo
+              className="col-span-12 lg:col-span-6"
+              title="Personal Info"
+            />
+          }
         />
-        <Route path="/language" element={<Languages title="Language" />} />
-        <Route path="/skills" element={<Skills title="Skills" />} />
+        <Route
+          path="/language"
+          element={
+            <Languages className="col-span-12 lg:col-span-6" title="Language" />
+          }
+        />
+        <Route
+          path="/skills"
+          element={
+            <Skills title="Skills" className="col-span-12 lg:col-span-6" />
+          }
+        />
         <Route
           path="/certificate"
-          element={<Certificate title="Certificate" />}
+          element={
+            <Certificate
+              className="col-span-12 lg:col-span-6"
+              title="Certificate"
+            />
+          }
         />
-        <Route path="/hobbies" element={<Hobbies title="Hobbies" />} />
+        <Route
+          path="/hobbies"
+          element={
+            <Hobbies className="col-span-12 lg:col-span-6" title="Hobbies" />
+          }
+        />
       </Routes>
       <SettingsMenu
+        className="col-span-12 lg:col-span-3"
         title="Parameters"
         description="Change color,fonts and template"
       />
-    </Flex>
+    </Box>
   );
 }

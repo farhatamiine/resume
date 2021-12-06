@@ -1,46 +1,45 @@
 import React from 'react';
-import { DiYeoman } from 'react-icons/di';
-import { GiTiedScroll } from 'react-icons/gi';
-import { IoBriefcaseSharp } from 'react-icons/io5';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import CardButton from '../CardButton/CardButton';
+import ResumeColor from '../ColorsPicker/ResumeColor';
+import ResumeFonts from '../FontPicker/ResumeFonts';
+import PdfDocument from '../PdfDocument/PdfDocument';
 
-const cardSection = [
+const SettingSection = [
   {
-    icon: <DiYeoman size="30" color="#0d47a1" />,
-    name: 'Personal Info',
-    routeName: '/personal-info',
+    components: <ResumeColor />,
+    name: 'Color Scheme',
   },
   {
-    icon: <GiTiedScroll size="30" color="#0d47a1" />,
-    name: 'Summary',
-    routeName: '/summary',
+    components: <ResumeFonts pickerId="header" />,
+    name: 'Header Font',
   },
   {
-    icon: <IoBriefcaseSharp size="30" color="#0d47a1" />,
-    name: 'Work Experience',
-    routeName: '/work-experience',
+    components: <ResumeFonts pickerId="text" />,
+    name: 'Text Font',
+  },
+  {
+    components: <PdfDocument />,
+    name: 'Generate Pdf',
   },
 ];
 
-export default function SettingsMenu({ title, description }) {
+export default function SettingsMenu({ title, description, className }) {
   return (
-    <Container flex="column" className="p-3 rounded-md  shadow-md ">
+    <Container
+      flex="column"
+      className={`${className} p-3 rounded-md  shadow-md `}
+    >
       <Container flex="column">
         <Head>{title}</Head>
         <Text>{description}</Text>
       </Container>
-      <div className="grid grid-cols-2 gap-2">
-        {cardSection.map((e, index) => {
+      <div>
+        {SettingSection.map((e, index) => {
           return (
-            <NavLink to={e.routeName} key={index}>
-              <CardButton
-                icon={e.icon}
-                cardName={e.name}
-                routeName={e.routeName}
-              />
-            </NavLink>
+            <div className="my-5 w-full" key={index}>
+              <Head1>{e.name}</Head1>
+              {e.components}
+            </div>
           );
         })}
       </div>
@@ -51,15 +50,22 @@ const Container = styled.div`
   display: flex;
   margin: 5px 10px;
   align-items: flex-start;
-  width: auto;
+  width: ${props => (props.width ? props.width : 'auto')};
   height: fit-content;
-  flex-direction: ${props => props.flex};
+  flex-direction: ${props => (props.flex ? props.flex : 'row')};
 `;
 
 const Head = styled.h1`
   font-weight: 600;
   font-size: 17;
-  color: #000;
+  color: #000000;
+`;
+
+const Head1 = styled.h1`
+  font-weight: 500;
+  font-size: 14;
+  margin-bottom: 5px;
+  color: #3b3b3b;
 `;
 
 const Text = styled.p`

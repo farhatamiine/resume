@@ -8,9 +8,7 @@ export default function CardButton(props) {
   const { pathname } = useLocation();
 
   let match = useMatch({ path: pathname, end: true });
-  useEffect(() => {
-    console.log(match);
-  }, [match]);
+  useEffect(() => {}, [match]);
   return (
     <CardIcon
       borderRadius="lg"

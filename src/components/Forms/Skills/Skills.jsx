@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { saveSkills } from '../../../features/personalInfo/PersonalnfoSlice';
 
-export default function Skills({ title }) {
+export default function Skills({ title, className }) {
   const skills = useSelector(state => state.personalInfo.skills);
   const [skill, setSkill] = useState('');
 
@@ -43,10 +43,9 @@ export default function Skills({ title }) {
 
   return (
     <Box
-      width="50%"
+      className={`${className} p-3 rounded-md  shadow-md `}
       borderBottomWidth="1px"
       as="section"
-      className="shadow-md "
       bg="white"
       px={{
         md: '5',

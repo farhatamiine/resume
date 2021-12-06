@@ -11,7 +11,7 @@ import { infos } from '../../../constants';
 import { saveLanguages } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
-export default function Languages({ title }) {
+export default function Languages({ title, className }) {
   const [language, setLanguage] = React.useState({});
 
   const handleChange = e => {
@@ -29,10 +29,9 @@ export default function Languages({ title }) {
 
   return (
     <Box
-      width="50%"
       borderBottomWidth="1px"
       as="section"
-      className="shadow-md "
+      className={`${className} p-3 rounded-md  shadow-md `}
       bg="white"
       px={{
         md: '5',

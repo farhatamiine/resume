@@ -12,7 +12,7 @@ import { infos } from '../../../constants';
 import { saveCertifications } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
-export default function Certificate({ title }) {
+export default function Certificate({ title, className }) {
   const [isExpired, setIsExpired] = useState(false);
 
   const [certificate, setCertification] = React.useState({});
@@ -41,10 +41,8 @@ export default function Certificate({ title }) {
 
   return (
     <Box
-      width="50%"
       borderBottomWidth="1px"
-      as="section"
-      className="shadow-md "
+      className={`${className} p-3 rounded-md  shadow-md `}
       bg="white"
       px={{
         md: '5',

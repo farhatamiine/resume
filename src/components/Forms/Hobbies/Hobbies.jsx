@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { saveHobbies } from '../../../features/personalInfo/PersonalnfoSlice';
 
-export default function Hobbies({ title }) {
+export default function Hobbies({ title, className }) {
   const hobbies = useSelector(state => state.personalInfo.hobbies);
   const toast = useToast();
 
@@ -45,10 +45,9 @@ export default function Hobbies({ title }) {
 
   return (
     <Box
-      width="50%"
+      className={`${className} p-3 rounded-md  shadow-md `}
       borderBottomWidth="1px"
       as="section"
-      className="shadow-md "
       bg="white"
       px={{
         md: '5',

@@ -11,7 +11,7 @@ export default function CardDescription(props) {
   const { title, description, location } = props;
   return (
     <Box position="relative">
-      <Box fontWeight="bold" maxW="xl">
+      <Box fontWeight="bold" maxW="xl" className="apply-font-header">
         {title}
       </Box>
       <HStack
@@ -23,7 +23,12 @@ export default function CardDescription(props) {
         <Box as={HiLocationMarker} fontSize="md" color="gray.400" />
         <span>{location}</span>
       </HStack>
-      <Box mt="3" maxW="xl" color={mode('gray.600', 'gray.200')}>
+      <Box
+        mt="3"
+        maxW="xl"
+        color={mode('gray.600', 'gray.200')}
+        className="apply-font-text"
+      >
         {description}
       </Box>
       <HStack

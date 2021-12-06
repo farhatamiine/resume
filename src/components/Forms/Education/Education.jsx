@@ -11,7 +11,7 @@ import { infos } from '../../../constants';
 import { saveEducation } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
-export default function Education({ title }) {
+export default function Education({ title, className }) {
   const [education, setEducation] = React.useState({});
 
   const handleChange = e => {
@@ -29,10 +29,9 @@ export default function Education({ title }) {
 
   return (
     <Box
-      width="50%"
+      className={`${className} p-3 rounded-md  shadow-md `}
       borderBottomWidth="1px"
       as="section"
-      className="shadow-md "
       bg="white"
       px={{
         md: '5',
