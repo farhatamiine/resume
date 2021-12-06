@@ -20,7 +20,7 @@ export default function PreviewResume() {
   const { summary } = resume.summary;
   return (
     <div style={styles.A4Paper} id="myResume">
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-6">
         <div className="lg:col-span-7">
           <div className="about mb-2">
             <h1 className="text-4xl capitalize font-semibold">
@@ -48,12 +48,14 @@ export default function PreviewResume() {
           <p className="text-blue-400 text-base font-medium uppercase">
             Experience
           </p>
-          <div className="experience">
+          <div className="experience pt-3">
             {resume.experience.map(exp => (
-              <div>
+              <div className="mb-5">
                 <div className="mb-1">
-                  <h3 className="text-xl font-semibold">{exp.employer}</h3>
-                  <p className="text-lg mb-0">{exp.job_title}</p>
+                  <h3 className="text-lg text-gray-600 font-medium uppercase">
+                    {exp.employer} - {exp.city}
+                  </h3>
+                  <p className="text-xl font-semibold mb-0">{exp.job_title}</p>
                 </div>
                 <div className="mb-1">
                   <p className="text-base font-medium">
@@ -61,16 +63,81 @@ export default function PreviewResume() {
                   </p>
                 </div>
                 <div className="mb-1">
-                  <p className="text-sm">{exp.description}</p>
+                  <p className="text-sm text-justify">{exp.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-blue-400 text-base font-medium uppercase">
+            Competences
+          </p>
+          <div className="experience pt-3">
+            <ul className="pl-4 list-disc">
+              {resume.skills.map(skill => (
+                <li className="text-base capitalize">{skill}</li>
+              ))}
+            </ul>
+          </div>
+          <p className="text-blue-400 text-base font-medium uppercase">
+            Certifications
+          </p>
+          <div className="experience pt-3">
+            {resume.certifications.map(cert => (
+              <div className="mb-5">
+                <div className="mb-1">
+                  <h3 className="text-lg text-gray-600 font-medium uppercase">
+                    {cert.issuing_agency}
+                  </h3>
+                  <p className="text-xl font-semibold mb-0">
+                    {cert.certificate_name} - {cert.certificate_id}
+                  </p>
+                </div>
+                <div className="mb-1">
+                  <p className="text-base font-medium">{cert.dateOfIssue}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="lg:col-span-4">
-          <p className="text-blue-400 text-base font-medium uppercase">
+        <div className="lg:col-span-5">
+          <p className="text-blue-400 text-base font-medium uppercase ">
             FORMATIONS
           </p>
+          <div className="experience pt-3">
+            {resume.education.map(edu => (
+              <div className="mb-5">
+                <div className="mb-1">
+                  <p className="text-sm font-semibold mb-0">{edu.fieldStudy}</p>
+                  <h5 className="text-base text-blue-600 font-light">
+                    {edu.city} - {edu.country}
+                  </h5>
+                </div>
+                <div className="mb-1">
+                  <p className="text-sm text-justify">{edu.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-blue-400 text-base font-medium uppercase">
+            Languages
+          </p>
+          <div className="experience pt-3">
+            <ul className="pl-4 list-disc">
+              {resume.languages.map(lang => (
+                <li className="text-base capitalize">{lang.languages}</li>
+              ))}
+            </ul>
+          </div>
+          <p className="text-blue-400 mt-5 text-base font-medium uppercase">
+            Loisirs
+          </p>
+          <div className="experience pt-3">
+            <ul className="pl-4 list-disc">
+              {resume.hobbies.map(lang => (
+                <li className="text-base capitalize">{lang}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
