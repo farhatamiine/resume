@@ -9,3 +9,7 @@ html {
 .bg-blue {
   background-color: #0d47a1;
 }
+.css-eqxvro:focus,
+.css-eqxvro[data-focus] {
+  box-shadow: none !important;
+}

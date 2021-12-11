@@ -1,9 +1,10 @@
 import { Button } from '@chakra-ui/button';
+import { Checkbox } from '@chakra-ui/checkbox';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Textarea } from '@chakra-ui/textarea';
-import React from 'react';
+import React, { useState } from 'react';
 import { AiFillSave, AiOutlineCalendar, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
@@ -13,6 +14,7 @@ import CardInfo from '../../CardInfos/CardInfo';
 
 export default function Experience({ title, className }) {
   const [experience, setExperience] = React.useState({});
+  const [isWorking, setIsWorking] = useState(false);
 
   const handleChange = e => {
     setExperience({
@@ -79,6 +81,16 @@ export default function Experience({ title, className }) {
           <Input type="text" onChange={handleChange} />
         </FormControl>
       </Flex>
+      <Flex align="center" justify="space-between" my="3">
+        <FormControl id="isExpired" isRequired>
+          <Checkbox
+            isChecked={isWorking}
+            onChange={e => setIsWorking(!isWorking)}
+          >
+            You still working here
+          </Checkbox>
+        </FormControl>
+      </Flex>
       <Flex align="center" justify="space-between" mb="2">
         <FormControl id="start" mr="10px" isRequired>
           <FormLabel fontSize="sm">Start Date</FormLabel>
@@ -88,22 +100,28 @@ export default function Experience({ title, className }) {
               children={<AiOutlineCalendar color="gray.300" />}
             />
             <Input
-              type="date"
+              type="month"
               onChange={handleChange}
               placeholder="Start Date"
             />
           </InputGroup>
         </FormControl>
-        <FormControl id="end" mr="10px" isRequired>
-          <FormLabel fontSize="sm">End Date</FormLabel>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<AiOutlineCalendar color="gray.300" />}
-            />
-            <Input type="date" onChange={handleChange} placeholder="End Date" />
-          </InputGroup>
-        </FormControl>
+        {!isWorking && (
+          <FormControl id="end" mr="10px" isRequired>
+            <FormLabel fontSize="sm">End Date</FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                children={<AiOutlineCalendar color="gray.300" />}
+              />
+              <Input
+                type="month"
+                onChange={handleChange}
+                placeholder="End Date"
+              />
+            </InputGroup>
+          </FormControl>
+        )}
       </Flex>
 
       <Flex align="center" justify="space-between" mb="5">
@@ -126,7 +144,7 @@ export default function Experience({ title, className }) {
           Save Education
         </Button>
       </Flex>
-      <CardInfo cardTitle="Education" infos={infos} {...infos} />
+      <CardInfo cardTitle={title} infos={infos} {...infos} />
     </Box>
   );
 }

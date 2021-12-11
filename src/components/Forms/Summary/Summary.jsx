@@ -1,29 +1,28 @@
 import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Box, Flex, Text } from '@chakra-ui/layout';
-import { Textarea } from '@chakra-ui/textarea';
 import React from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useDispatch } from 'react-redux';
 import { saveSummary } from '../../../features/personalInfo/PersonalnfoSlice';
 
 export default function Summary({ title, className }) {
-  const [summary, setSummary] = React.useState('');
-
-  const handleChange = e => {
-    setSummary({
-      ...summary,
-      [e.target.id]: e.target.value,
-    });
-  };
-
   const dispatch = useDispatch();
 
-  const saveData = () => {
-    dispatch(saveSummary(summary));
+  const [summary, setSummary] = React.useState('');
+
+  const saveSummaryHandler = () => {
+    dispatch(saveSummary({ summary }));
+
+    setSummary('');
   };
 
+  const handleChange = html => {
+    setSummary(html);
+  };
   return (
     <Box
       className={`${className} p-3 rounded-md  shadow-md `}
@@ -57,16 +56,21 @@ export default function Summary({ title, className }) {
         </Box>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
-        <FormControl id="summary" mr="10px" isRequired>
+        <FormControl mr="10px" isRequired>
           <FormLabel fontSize="sm">Tell us about yourself</FormLabel>
-          <Textarea rows="10" onChange={handleChange} />
+          <ReactQuill
+            id="summary"
+            onChange={handleChange}
+            value={summary}
+            placeholder="Write something or insert a heart ♥"
+          />
         </FormControl>
       </Flex>
       <Flex align="center" justify="space-between" mb="5">
         <Button
           colorScheme="blue"
           variant="outline"
-          onClick={saveData}
+          onClick={saveSummaryHandler}
           leftIcon={<AiFillSave />}
         >
           Save summary

@@ -2,42 +2,49 @@ import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
-import React, { useEffect } from 'react';
-import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
+import { useFormik } from 'formik';
+import React from 'react';
+import { AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import * as Yup from 'yup';
+import 'yup-phone';
+import { ErrorContainer } from '../../../assets/styles/styles';
 import { savePersonalInfo } from '../../../features/personalInfo/PersonalnfoSlice';
 
+const validationSchemaGlobal = Yup.object({
+  firstName: Yup.string()
+    .max(15, 'Must be 15 characters or less')
+    .required('Required'),
+  profession: Yup.string()
+    .max(25, 'Must be 15 characters or less')
+    .required('Required'),
+  city: Yup.string()
+    .max(15, 'Must be 15 characters or less')
+    .required('Required'),
+  phone: Yup.string().phone('Invalid phone number').required('Required'),
+  country: Yup.string()
+    .max(15, 'Must be 15 characters or less')
+    .required('Required'),
+  lastName: Yup.string()
+    .max(20, 'Must be 20 characters or less')
+    .required('Required'),
+  email: Yup.string().email('Invalid email address').required('Required'),
+});
+
 export default function PersonalInfo({ title, className }) {
-  const currentPersonlInfo = useSelector(state => state.personalInfo.userInfo);
-
-  const [personalInfo, setPersonalInfo] = React.useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    profession: '',
-    city: '',
-    state: '',
-    zipcode: '',
-  });
-
-  useEffect(() => {
-    console.log('Current Personal Info', currentPersonlInfo);
-  }, [currentPersonlInfo]);
+  //const currentPersonlInfo = useSelector(state => state.personalInfo.userInfo);
 
   const dispatch = useDispatch();
-
-  const saveInfo = () => {
-    dispatch(savePersonalInfo(personalInfo));
-  };
-
-  const handleChange = e => {
-    setPersonalInfo({
-      ...personalInfo,
-      [e.target.id]: e.target.value,
-    });
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+    },
+    validationSchema: validationSchemaGlobal,
+    onSubmit: values => {
+      dispatch(savePersonalInfo(values));
+    },
+  });
 
   return (
     <Box
@@ -71,58 +78,126 @@ export default function PersonalInfo({ title, className }) {
           </Button>
         </Box>
       </Flex>
-      <Flex align="center" justify="space-between" mb="5">
-        <FormControl id="first_name" mr="10px" isRequired>
-          <FormLabel fontSize="sm">First Name</FormLabel>
-          <Input type="text" onChange={handleChange} />
-        </FormControl>
-        <FormControl id="last_name" isRequired>
-          <FormLabel fontSize="sm">Last Name</FormLabel>
-          <Input type="text" onChange={handleChange} />
-        </FormControl>
-      </Flex>
-      <Flex align="center" justify="space-between" mb="5">
-        <FormControl id="email" mr="10px" isRequired>
-          <FormLabel fontSize="sm">Email</FormLabel>
-          <Input type="email" onChange={handleChange} />
-        </FormControl>
-        <FormControl id="phone" isRequired>
-          <FormLabel fontSize="sm">Phone Number</FormLabel>
-          <Input type="tel" onChange={handleChange} />
-        </FormControl>
-      </Flex>
-      <Flex align="center" justify="space-between" mb="5">
-        <FormControl id="profession" isRequired>
-          <FormLabel fontSize="sm">Profession</FormLabel>
-          <Input type="text" onChange={handleChange} />
-        </FormControl>
-      </Flex>
-      <Flex align="center" justify="space-around" mb="2">
-        <FormControl id="city" isRequired mr="10px">
-          <FormLabel fontSize="sm">City</FormLabel>
-          <Input type="text" onChange={handleChange} />
-        </FormControl>
-        <Flex align="center" justify="space-between">
-          <FormControl id="state" mr="10px" isRequired>
-            <FormLabel fontSize="sm">Province</FormLabel>
-            <Input type="text" onChange={handleChange} />
+      <form onSubmit={formik.handleSubmit}>
+        <Flex align="center" justify="space-between" mb="5">
+          <FormControl id="firstName" mr="10px">
+            <FormLabel htmlFor="firstName">First Name</FormLabel>
+            <Input
+              isInvalid={formik.touched.firstName && formik.errors.firstName}
+              id="firstName"
+              name="firstName"
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.firstName}
+            />
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <ErrorContainer>{formik.errors.firstName}</ErrorContainer>
+            ) : null}
           </FormControl>
-          <FormControl id="zipcode" isRequired>
-            <FormLabel fontSize="sm">Zip Code</FormLabel>
-            <Input type="text" onChange={handleChange} />
+          <FormControl id="lastName">
+            <FormLabel htmlFor="firstName" fontSize="sm">
+              Last Name
+            </FormLabel>
+            <Input
+              isInvalid={formik.touched.lastName && formik.errors.lastName}
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.lastName}
+            />
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <ErrorContainer>{formik.errors.lastName}</ErrorContainer>
+            ) : null}
           </FormControl>
         </Flex>
-      </Flex>
-      <Flex align="center" justify="space-between" my="5">
-        <Button
-          colorScheme="blue"
-          onClick={saveInfo}
-          variant="outline"
-          leftIcon={<AiFillSave />}
-        >
-          Save my Information
-        </Button>
-      </Flex>
+        <Flex align="center" justify="space-between" mb="5">
+          <FormControl id="email" mr="10px">
+            <FormLabel htmlFor="email" fontSize="sm">
+              Email
+            </FormLabel>
+            <Input
+              isInvalid={formik.touched.email && formik.errors.email}
+              type="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <ErrorContainer>{formik.errors.email}</ErrorContainer>
+            ) : null}
+          </FormControl>
+          <FormControl id="phone">
+            <FormLabel htmlFor="phone" fontSize="sm">
+              Phone Number
+            </FormLabel>
+            <Input
+              isInvalid={formik.touched.phone && formik.errors.phone}
+              type="tel"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phone}
+            />
+            {formik.touched.phone && formik.errors.phone ? (
+              <ErrorContainer>{formik.errors.phone}</ErrorContainer>
+            ) : null}
+          </FormControl>
+        </Flex>
+        <Flex align="center" justify="space-between" mb="5">
+          <FormControl id="profession">
+            <FormLabel htmlFor="profession" fontSize="sm">
+              Profession
+            </FormLabel>
+            <Input
+              isInvalid={formik.touched.profession && formik.errors.profession}
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.profession}
+            />
+            {formik.touched.profession && formik.errors.profession ? (
+              <ErrorContainer>{formik.errors.profession}</ErrorContainer>
+            ) : null}
+          </FormControl>
+        </Flex>
+        <Flex align="center" justify="space-between" mb="2">
+          <FormControl id="country" mr="10px">
+            <FormLabel htmlFor="country" fontSize="sm">
+              Country
+            </FormLabel>
+            <Input
+              isInvalid={formik.touched.country && formik.errors.country}
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.country}
+            />
+            {formik.touched.country && formik.errors.country ? (
+              <ErrorContainer>{formik.errors.country}</ErrorContainer>
+            ) : null}
+          </FormControl>
+          <FormControl id="city" mr="10px">
+            <FormLabel htmlFor="city" fontSize="sm">
+              City
+            </FormLabel>
+            <Input
+              isInvalid={formik.touched.city && formik.errors.city}
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.city}
+            />
+            {formik.touched.city && formik.errors.city ? (
+              <ErrorContainer>{formik.errors.city}</ErrorContainer>
+            ) : null}
+          </FormControl>
+        </Flex>
+        <Flex align="center" justify="space-between" my="5">
+          <Button colorScheme="teal" variant="outline" type="submit">
+            Submit
+          </Button>
+        </Flex>
+      </form>
     </Box>
   );
 }
