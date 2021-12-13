@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   FaEnvelope,
   FaGithub,
@@ -14,43 +15,53 @@ export default function PreviewResume() {
   const { firstName, lastName, profession, email, phone, city, country } =
     resume.userInfo;
   const { summary } = resume.summary;
+
   return (
     <div className="container" id="myResume">
       <div className="left_side">
         <div className="profileText">
           <div className="imgBox">
             <img
-              src="https://randomuser.me/api/portraits/women/44.jpg"
+              src="https://1001freedownloads.s3.amazonaws.com/vector/thumb/75096/ProfilePlaceholderSuit.png"
               alt="userface"
             />
           </div>
-          <h2>
-            {firstName} {lastName}
-            <br />
-            <span>{profession}</span>
-          </h2>
+
+          {firstName && lastName && (
+            <h2>
+              {firstName} {lastName}
+              <br />
+              {profession && <span>{profession}</span>}
+            </h2>
+          )}
         </div>
         <div className="contactInfo">
           <h3 className="title">Contact Info</h3>
           <ul>
-            <li className="info">
-              <FaPhoneAlt className="icon" />
-              <span className="text">{phone}</span>
-            </li>
-            <li className="info">
-              <FaMapPin className="icon" />
-              <span className="text">
-                {city} {country}
-              </span>
-            </li>
+            {phone && (
+              <li className="info">
+                <FaPhoneAlt className="icon" />
+                <span className="text">{phone}</span>
+              </li>
+            )}
+            {city && country && (
+              <li className="info">
+                <FaMapPin className="icon" />
+                <span className="text">
+                  {city} {country}
+                </span>
+              </li>
+            )}
             <li className="info">
               <FaGithub className="icon" />
               <span className="text">farhatamiine</span>
             </li>
-            <li className="info">
-              <FaEnvelope className="icon" />
-              <span className="text">{email}</span>
-            </li>
+            {email && (
+              <li className="info">
+                <FaEnvelope className="icon" />
+                <span className="text">{email}</span>
+              </li>
+            )}
             <li className="info">
               <FaLinkedin className="icon" />
               <span className="text">aminefarhat</span>
@@ -83,7 +94,37 @@ export default function PreviewResume() {
           </ul>
         </div>
       </div>
-      <div className="right_side"></div>
+      <div className="right_side">
+        <div className="about">
+          <h3 className="title">Summary</h3>
+          <p className="text" dangerouslySetInnerHTML={{ __html: summary }}></p>
+        </div>
+        <div className="experience">
+          <h3 className="title">Experience</h3>
+          <ul>
+            {resume.experience &&
+              resume.experience.map(exp => (
+                <li className="info">
+                  <div className="experience_info">
+                    <h5 className="year">
+                      {moment(exp.startDate).format('MMMM YYYY')} -{' '}
+                      {exp.end
+                        ? moment(exp.end).format('MMMM YYYY')
+                        : 'Present'}
+                    </h5>
+                    <h5 className="position">{exp.job_title}</h5>
+                    <h4 className="company">
+                      {exp.employer} {exp.country}
+                    </h4>
+                    <p className="description">
+                      {exp.description && exp.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
