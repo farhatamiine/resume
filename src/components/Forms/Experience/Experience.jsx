@@ -3,10 +3,11 @@ import { Checkbox } from '@chakra-ui/checkbox';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
-import { Textarea } from '@chakra-ui/textarea';
 import React, { useState } from 'react';
 import { AiFillSave, AiOutlineCalendar, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useDispatch } from 'react-redux';
 import { infos } from '../../../constants';
 import { saveExperience } from '../../../features/personalInfo/PersonalnfoSlice';
@@ -15,12 +16,17 @@ import CardInfo from '../../CardInfos/CardInfo';
 export default function Experience({ title, className }) {
   const [experience, setExperience] = React.useState({});
   const [isWorking, setIsWorking] = useState(false);
-
+  const [description, setDescription] = useState('');
   const handleChange = e => {
     setExperience({
       ...experience,
       [e.target.id]: e.target.value,
     });
+  };
+
+  const handleChangeDescription = e => {
+    setDescription(e);
+    Object.assign(experience, { description });
   };
 
   const dispatch = useDispatch();
@@ -127,10 +133,11 @@ export default function Experience({ title, className }) {
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="description" isRequired>
           <FormLabel fontSize="sm">Description</FormLabel>
-          <Textarea
-            onChange={handleChange}
-            placeholder="Description"
-            size="sm"
+          <ReactQuill
+            id="description"
+            value={description}
+            onChange={handleChangeDescription}
+            placeholder="Write something or insert a heart ♥"
           />
         </FormControl>
       </Flex>

@@ -2,6 +2,7 @@
   position: relative;
   width: 816px !important;
   height: 1056px;
+  max-height: 1056px;
   margin: 10px auto;
   background: #fff;
   display: grid;
@@ -115,6 +116,45 @@
         }
       }
     }
+    .certification {
+      margin-top: 20px;
+      padding-top: 5px;
+      .title {
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .info {
+        margin-top: 10px;
+        color: white;
+        display: flex;
+        font-weight: 400;
+        justify-content: start;
+        align-items: center;
+        .certification_info {
+          margin-top: 10px;
+          color: #fff;
+          .year {
+            color: #00aaf7;
+            font-weight: 600;
+            font-size: 13px;
+          }
+          .degree {
+            font-weight: 500;
+            color: #fff;
+            margin-top: 3px;
+            font-size: 13px;
+          }
+          .school {
+            margin-top: 3px;
+            font-weight: 300;
+            color: #fff;
+            font-size: 14px;
+          }
+        }
+      }
+    }
   }
   .right_side {
     position: relative;
@@ -125,9 +165,9 @@
       margin-bottom: 20px;
       .title {
         color: #003147;
-        font-weight: 600;
+        font-weight: 500;
         margin-bottom: 10px;
-        font-size: 1.2em;
+        font-size: 1.4em;
         letter-spacing: 1px;
         text-transform: uppercase;
       }
@@ -145,40 +185,68 @@
       margin-bottom: 20px;
       .title {
         color: #003147;
-        font-weight: 600;
+        font-weight: 500;
         margin-bottom: 10px;
-        font-size: 1.2em;
+        font-size: 1.4em;
         letter-spacing: 1px;
         text-transform: uppercase;
       }
       .info {
+        margin-top: 20px;
         .experience_info {
           margin-top: 10px;
           color: #003147;
-          .year {
-            color: #00aaf7;
-            font-weight: 600;
-            font-size: 13px;
-          }
-          .company {
-            font-weight: 500;
-            color: #003147;
-            text-transform: uppercase;
-            margin-top: 3px;
-            font-size: 14px;
+          .info_container {
+            display: flex;
+            justify-items: center;
+            justify-content: space-between;
+            color: #757575;
+            align-items: center;
+            .year {
+              font-weight: 600;
+              font-size: 14px;
+            }
+            .company {
+              font-weight: 600;
+
+              margin-top: 6px;
+              font-size: 14px;
+              .employer {
+                text-transform: capitalize;
+                margin-right: 6px;
+                font-style: italic;
+              }
+              .city {
+                margin-left: 3px;
+              }
+              .country {
+              }
+            }
           }
           .position {
             margin-top: 3px;
-            font-weight: 500;
-            color: #003147;
-            font-size: 20px;
-            text-transform: uppercase;
-          }
-          .description {
-            margin-top: 3px;
-            font-weight: 300;
+            font-weight: 600;
             color: #003147;
             font-size: 14px;
+            text-transform: uppercase;
+          }
+
+          .description {
+            margin-top: 3px;
+            color: #003147;
+            font-size: 14px;
+            padding-left: 12px;
+            margin: 10px 0;
+            p {
+              margin: 4px 0;
+              display: list-item;
+              text-align: justify;
+              list-style-type: square; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+              list-style-position: inside;
+              &:after {
+                content: '.';
+              }
+            }
           }
         }
       }

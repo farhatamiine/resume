@@ -15,6 +15,7 @@ export default function PreviewResume() {
   const { firstName, lastName, profession, email, phone, city, country } =
     resume.userInfo;
   const { summary } = resume.summary;
+  const { certifications } = resume;
 
   return (
     <div className="container" id="myResume">
@@ -91,8 +92,52 @@ export default function PreviewResume() {
                 </h4>
               </div>
             </li>
+            <li className="info">
+              <div className="education_info">
+                <h5 className="year">2013 – 2015</h5>
+                <h5 className="degree">
+                  Diplôme de Technicien Spécialisé en développement informatique
+                </h5>
+                <h4 className="school">
+                  Institut Spécialisée de Technologie Appliquée
+                </h4>
+              </div>
+            </li>
           </ul>
         </div>
+        {certifications && (
+          <div className="certification">
+            <h3 className="title">Certification</h3>
+            <ul>
+              {certifications.map(
+                ({
+                  certificate_name,
+                  dateOfIssue,
+                  issuing_agency,
+                  certificate_id,
+                  expirationDate,
+                }) => (
+                  <li className="info">
+                    <div className="certification_info">
+                      <h5 className="year">
+                        {moment(dateOfIssue).format('MMMM YYYY')} -
+                        {expirationDate ? (
+                          <span className="mr-7">
+                            {moment(expirationDate).format('MMMM YYYY')}
+                          </span>
+                        ) : (
+                          'No Expiration'
+                        )}
+                      </h5>
+                      <h5 className="degree">{certificate_name}</h5>
+                      <h4 className="school">{issuing_agency}</h4>
+                    </div>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        )}
       </div>
       <div className="right_side">
         <div className="about">
@@ -106,19 +151,27 @@ export default function PreviewResume() {
               resume.experience.map(exp => (
                 <li className="info">
                   <div className="experience_info">
-                    <h5 className="year">
-                      {moment(exp.startDate).format('MMMM YYYY')} -{' '}
-                      {exp.end
-                        ? moment(exp.end).format('MMMM YYYY')
-                        : 'Present'}
-                    </h5>
                     <h5 className="position">{exp.job_title}</h5>
-                    <h4 className="company">
-                      {exp.employer} {exp.country}
-                    </h4>
-                    <p className="description">
-                      {exp.description && exp.description}
-                    </p>
+                    <div className="info_container">
+                      <h4 className="company">
+                        <span className="employer">{exp.employer}</span>|
+                        <span className="city">{exp.city}</span> -
+                        <span className="country">{exp.country}</span>
+                      </h4>
+                      <h5 className="year">
+                        {moment(exp.startDate).format('MMMM YYYY')} -{' '}
+                        {exp.end
+                          ? moment(exp.end).format('MMMM YYYY')
+                          : 'Present'}
+                      </h5>
+                    </div>
+
+                    {exp.description && (
+                      <div
+                        className="description"
+                        dangerouslySetInnerHTML={{ __html: exp.description }}
+                      ></div>
+                    )}
                   </div>
                 </li>
               ))}
