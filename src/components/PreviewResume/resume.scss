@@ -10,7 +10,6 @@
   box-shadow: 0 35px 55px rgba(0, 0, 0, 0.1);
   .left_side {
     position: relative;
-    background: #003147;
     padding: 20px;
     .profileText {
       position: relative;
@@ -111,7 +110,15 @@
             margin-top: 3px;
             font-weight: 300;
             color: #fff;
-            font-size: 14px;
+            font-size: 12px;
+          }
+          .location {
+            color: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            span {
+              text-transform: capitalize;
+            }
           }
         }
       }

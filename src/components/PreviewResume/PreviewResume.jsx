@@ -12,14 +12,20 @@ import './resume.scss';
 export default function PreviewResume() {
   const resume = useSelector(state => state.personalInfo);
 
+  const setting = useSelector(state => state.resumeSetting);
+
   const { firstName, lastName, profession, email, phone, city, country } =
     resume.userInfo;
+
+  const { color } = setting;
   const { summary } = resume.summary;
   const { certifications } = resume;
 
+  const { education } = resume;
+
   return (
     <div className="container" id="myResume">
-      <div className="left_side">
+      <div className="left_side" style={{ background: `${color}` }}>
         <div className="profileText">
           <div className="imgBox">
             <img
@@ -72,37 +78,29 @@ export default function PreviewResume() {
         <div className="education">
           <h3 className="title">Education</h3>
           <ul>
-            <li className="info">
-              <div className="education_info">
-                <h5 className="year">2016 – 2019</h5>
-                <h5 className="degree">Ingénieur en Informatique et Réseaux</h5>
-                <h4 className="school">
-                  Ecole Marocaine des Sciences de l’Ingénieur
-                </h4>
-              </div>
-            </li>
-            <li className="info">
-              <div className="education_info">
-                <h5 className="year">2013 – 2015</h5>
-                <h5 className="degree">
-                  Diplôme de Technicien Spécialisé en développement informatique
-                </h5>
-                <h4 className="school">
-                  Institut Spécialisée de Technologie Appliquée
-                </h4>
-              </div>
-            </li>
-            <li className="info">
-              <div className="education_info">
-                <h5 className="year">2013 – 2015</h5>
-                <h5 className="degree">
-                  Diplôme de Technicien Spécialisé en développement informatique
-                </h5>
-                <h4 className="school">
-                  Institut Spécialisée de Technologie Appliquée
-                </h4>
-              </div>
-            </li>
+            {education &&
+              education.map(
+                (
+                  { schoolName, fieldStudy, country, city, start, end },
+                  index
+                ) => (
+                  <li className="info" key={index}>
+                    <div className="education_info">
+                      <div className="flex items-center justify-between">
+                        <h5 className="year">
+                          {moment(start).format('YYYY')} –{' '}
+                          {end ? moment(end).format('YYYY') : 'Present'}
+                        </h5>
+                        <h5 className="location">
+                          {city} - <span className="capitalize">{country}</span>
+                        </h5>
+                      </div>
+                      <h5 className="degree">{fieldStudy}</h5>
+                      <h4 className="school">{schoolName}</h4>
+                    </div>
+                  </li>
+                )
+              )}
           </ul>
         </div>
         {certifications && (

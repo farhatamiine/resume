@@ -2,9 +2,9 @@ import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
-import { Textarea } from '@chakra-ui/textarea';
-import React from 'react';
-import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
+import { Checkbox, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { AiFillSave, AiOutlineCalendar, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { infos } from '../../../constants';
@@ -12,7 +12,8 @@ import { saveEducation } from '../../../features/personalInfo/PersonalnfoSlice';
 import CardInfo from '../../CardInfos/CardInfo';
 
 export default function Education({ title, className }) {
-  const [education, setEducation] = React.useState({});
+  const [education, setEducation] = useState({});
+  const [isWorking, setIsWorking] = useState(false);
 
   const handleChange = e => {
     setEducation({
@@ -62,7 +63,7 @@ export default function Education({ title, className }) {
       <Flex align="center" justify="space-between" mb="5">
         <FormControl id="schoolName" mr="10px" isRequired>
           <FormLabel fontSize="sm">School Name</FormLabel>
-          <Input type="text" />
+          <Input type="text" onChange={handleChange} />
         </FormControl>
         <FormControl id="fieldStudy" isRequired>
           <FormLabel fontSize="sm">Field of Study</FormLabel>
@@ -80,17 +81,49 @@ export default function Education({ title, className }) {
         </FormControl>
       </Flex>
 
-      <Flex align="center" justify="space-between" mb="5">
-        <FormControl id="description" isRequired>
-          <FormLabel fontSize="sm">Description</FormLabel>
-          <Textarea
-            onChange={handleChange}
-            placeholder="Description"
-            size="sm"
-          />
+      <Flex align="center" justify="space-between" my="3">
+        <FormControl id="isExpired" isRequired>
+          <Checkbox
+            isChecked={isWorking}
+            onChange={e => setIsWorking(!isWorking)}
+          >
+            You still working here
+          </Checkbox>
         </FormControl>
       </Flex>
-      <Flex align="center" justify="space-between" mb="5">
+      <Flex align="center" justify="space-between" mb="2">
+        <FormControl id="start" mr="10px" isRequired>
+          <FormLabel fontSize="sm">Start Date</FormLabel>
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<AiOutlineCalendar color="gray.300" />}
+            />
+            <Input
+              type="month"
+              onChange={handleChange}
+              placeholder="Start Date"
+            />
+          </InputGroup>
+        </FormControl>
+        {!isWorking && (
+          <FormControl id="end" mr="10px" isRequired>
+            <FormLabel fontSize="sm">End Date</FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                children={<AiOutlineCalendar color="gray.300" />}
+              />
+              <Input
+                type="month"
+                onChange={handleChange}
+                placeholder="End Date"
+              />
+            </InputGroup>
+          </FormControl>
+        )}
+      </Flex>
+      <Flex align="center" justify="space-between" my="5">
         <Button
           colorScheme="blue"
           onClick={saveData}

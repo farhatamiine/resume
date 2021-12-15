@@ -148,7 +148,7 @@ export default function Experience({ title, className }) {
           variant="outline"
           leftIcon={<AiFillSave />}
         >
-          Save Education
+          Save Experience
         </Button>
       </Flex>
       <CardInfo cardTitle={title} infos={infos} {...infos} />

@@ -1,6 +1,8 @@
 import { Box } from '@chakra-ui/layout';
 import React from 'react';
 import { CirclePicker } from 'react-color';
+import { useDispatch } from 'react-redux';
+import { changeColor } from '../../features/resumeSettingSlice/ResumeSettingSlice';
 
 export default function ResumeColor() {
   const colors = [
@@ -18,9 +20,14 @@ export default function ResumeColor() {
     '#cddc39',
   ];
 
+  const dispatch = useDispatch();
+
   return (
     <Box w="auto">
-      <CirclePicker colors={colors} />
+      <CirclePicker
+        onChangeComplete={(color, e) => dispatch(changeColor(color.hex))}
+        colors={colors}
+      />
     </Box>
   );
 }
