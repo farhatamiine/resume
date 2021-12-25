@@ -1,3 +1,4 @@
+import { Progress } from '@chakra-ui/react';
 import moment from 'moment';
 import {
   FaEnvelope,
@@ -20,6 +21,7 @@ export default function PreviewResume() {
   const { color } = setting;
   const { summary } = resume.summary;
   const { certifications } = resume;
+  const { languages } = resume;
 
   const { education } = resume;
 
@@ -136,6 +138,26 @@ export default function PreviewResume() {
             </ul>
           </div>
         )}
+        {languages && (
+          <div className="languages">
+            <h3 className="title">Languages</h3>
+            <ul>
+              {languages.map(({ languages, level }) => (
+                <li className="info">
+                  <div className="language_info">
+                    <h5 className="degree">{languages}</h5>
+                    <Progress
+                      value={level * 10}
+                      height="5px"
+                      max={50}
+                      colorScheme="blue"
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <div className="right_side">
         <div className="about">
@@ -151,11 +173,16 @@ export default function PreviewResume() {
                   <div className="experience_info">
                     <h5 className="position">{exp.job_title}</h5>
                     <div className="info_container">
-                      <h4 className="company">
-                        <span className="employer">{exp.employer}</span>|
-                        <span className="city">{exp.city}</span> -
-                        <span className="country">{exp.country}</span>
-                      </h4>
+                      <h5 className="company">
+                        <div className="flex items-center emp ">
+                          <span className="employer">{exp.employer}</span>
+                        </div>
+                        <div className="location flex items-center ml-3">
+                          <FaMapPin />
+                          <span className="city">{exp.city}</span>
+                          <span className="country">{exp.country}</span>
+                        </div>
+                      </h5>
                       <h5 className="year">
                         {moment(exp.startDate).format('MMMM YYYY')} -{' '}
                         {exp.end

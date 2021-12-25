@@ -108,6 +108,7 @@
           }
           .school {
             margin-top: 3px;
+
             font-weight: 300;
             color: #fff;
             font-size: 12px;
@@ -124,7 +125,7 @@
       }
     }
     .certification {
-      margin-top: 20px;
+      margin: 20px 0px 10px 0px;
       padding-top: 5px;
       .title {
         color: #fff;
@@ -133,7 +134,6 @@
         text-transform: uppercase;
       }
       .info {
-        margin-top: 10px;
         color: white;
         display: flex;
         font-weight: 400;
@@ -151,6 +151,46 @@
             font-weight: 500;
             color: #fff;
             margin-top: 3px;
+            font-size: 13px;
+          }
+          .school {
+            margin-top: 3px;
+            font-weight: 300;
+            color: #fff;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .languages {
+      margin: 20px 0px 10px 0px;
+      padding-top: 5px;
+      .title {
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .info {
+        color: white;
+        display: flex;
+        font-weight: 400;
+        justify-content: start;
+        align-items: center;
+        .language_info {
+          color: #fff;
+          width: 100%;
+          margin-top: 5px;
+          .year {
+            color: #00aaf7;
+            font-weight: 600;
+            font-size: 13px;
+          }
+          .degree {
+            font-weight: 500;
+            color: #fff;
+            margin-top: 3px;
+            margin-bottom: 3px;
             font-size: 13px;
           }
           .school {
@@ -180,10 +220,10 @@
       }
       .text {
         color: #003147;
-        font-weight: 300;
-        font-size: 1.1em;
-        letter-spacing: 0.1px;
-        line-height: 1.4em;
+        font-weight: 400;
+        font-size: 0.9em;
+        letter-spacing: 0.05px;
+        line-height: 1.3em;
         text-align: justify;
       }
     }
@@ -215,18 +255,25 @@
             }
             .company {
               font-weight: 600;
-
               margin-top: 6px;
               font-size: 14px;
-              .employer {
-                text-transform: capitalize;
-                margin-right: 6px;
-                font-style: italic;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .emp {
+                .employer {
+                  text-transform: capitalize;
+                  margin-left: 6px;
+                  font-style: italic;
+                }
               }
-              .city {
-                margin-left: 3px;
-              }
-              .country {
+              .location {
+                .city {
+                  margin: 0 5px;
+                  font-style: italic;
+                }
+                .country {
+                }
               }
             }
           }
@@ -244,15 +291,10 @@
             font-size: 14px;
             padding-left: 12px;
             margin: 10px 0;
-            p {
-              margin: 4px 0;
-              display: list-item;
-              text-align: justify;
-              list-style-type: square; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+            ul {
+              list-style-type: square;
               list-style-position: inside;
-              &:after {
-                content: '.';
-              }
+              list-style-image: none;
             }
           }
         }

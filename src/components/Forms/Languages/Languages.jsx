@@ -71,18 +71,11 @@ export default function Languages({ title, className }) {
           <FormLabel fontSize="sm">language level</FormLabel>
           <Select onChange={handleChange} placeholder="Select option">
             <option value="Notions">Notions</option>
-            <option value="Limited professional competence">
-              Limited professional competence
-            </option>
-            <option value="Professional competence">
-              Professional competence
-            </option>
-            <option value="Full professional capacity">
-              full professional capacity
-            </option>
-            <option value="Bilingual or native language">
-              Bilingual or native language
-            </option>
+            <option value="1">Intermediate(B1) </option>
+            <option value="2">Upper-intermediate(B2)</option>
+            <option value="3">Advanced (C1)</option>
+            <option value="4">Proficient(C2).</option>
+            <option value="5">Native </option>
           </Select>
         </FormControl>
       </Flex>
