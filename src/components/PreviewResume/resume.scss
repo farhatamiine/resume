@@ -245,10 +245,8 @@
           color: #003147;
           .info_container {
             display: flex;
-            justify-items: center;
-            justify-content: space-between;
-            color: #757575;
-            align-items: center;
+            flex-direction: column;
+
             .year {
               font-weight: 600;
               font-size: 14px;
@@ -256,24 +254,17 @@
             .company {
               font-weight: 600;
               margin-top: 6px;
-              font-size: 14px;
+              font-size: 16px;
               display: flex;
-              justify-content: center;
+              justify-content: start;
               align-items: center;
               .emp {
                 .employer {
                   text-transform: capitalize;
-                  margin-left: 6px;
-                  font-style: italic;
                 }
               }
               .location {
-                .city {
-                  margin: 0 5px;
-                  font-style: italic;
-                }
-                .country {
-                }
+                margin: 0 2px;
               }
             }
           }
@@ -292,9 +283,15 @@
             padding-left: 12px;
             margin: 10px 0;
             ul {
+              list-style-position: outside;
               list-style-type: square;
-              list-style-position: inside;
-              list-style-image: none;
+              margin: 0;
+              padding: 0 0 0 20px;
+              li {
+                text-align: left;
+                margin: 2px 0;
+                padding: 0;
+              }
             }
           }
         }

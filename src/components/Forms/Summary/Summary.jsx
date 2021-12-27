@@ -1,6 +1,7 @@
 import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Box, Flex, Text } from '@chakra-ui/layout';
+import { useToast } from '@chakra-ui/react';
 import React from 'react';
 import { AiFillSave, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
@@ -13,10 +14,17 @@ export default function Summary({ title, className }) {
   const dispatch = useDispatch();
 
   const [summary, setSummary] = React.useState('');
-
+  const toast = useToast();
   const saveSummaryHandler = () => {
     dispatch(saveSummary({ summary }));
-
+    toast({
+      title: `Cool !`,
+      description: `You're Summary  saved!!.`,
+      status: 'success',
+      duration: 1000,
+      position: 'top-right',
+      isClosable: true,
+    });
     setSummary('');
   };
 

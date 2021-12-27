@@ -2,6 +2,7 @@ import { Button } from '@chakra-ui/button';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box, Flex, Text } from '@chakra-ui/layout';
+import { useToast } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
@@ -36,13 +37,29 @@ export default function PersonalInfo({ title, className }) {
   //const currentPersonlInfo = useSelector(state => state.personalInfo.userInfo);
 
   const dispatch = useDispatch();
+  const toast = useToast();
   const formik = useFormik({
     initialValues: {
+      city: '',
+      country: '',
       email: '',
+      firstName: '',
+      lastName: '',
+      phone: '',
+      profession: '',
     },
     validationSchema: validationSchemaGlobal,
-    onSubmit: values => {
+    onSubmit: (values, { resetForm }) => {
       dispatch(savePersonalInfo(values));
+      toast({
+        title: `Cool !`,
+        description: `You're personal Info saved!!.`,
+        status: 'success',
+        duration: 1000,
+        position: 'top-right',
+        isClosable: true,
+      });
+      resetForm();
     },
   });
 
@@ -193,8 +210,8 @@ export default function PersonalInfo({ title, className }) {
           </FormControl>
         </Flex>
         <Flex align="center" justify="space-between" my="5">
-          <Button colorScheme="teal" variant="outline" type="submit">
-            Submit
+          <Button colorScheme="blue" variant="outline" type="submit">
+            Save my information
           </Button>
         </Flex>
       </form>

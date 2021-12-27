@@ -175,16 +175,15 @@ export default function PreviewResume() {
                     <div className="info_container">
                       <h5 className="company">
                         <div className="flex items-center emp ">
-                          <span className="employer">{exp.employer}</span>
+                          <span className="employer">{exp.employer},</span>
                         </div>
-                        <div className="location flex items-center ml-3">
-                          <FaMapPin />
+                        <div className="location flex items-center">
                           <span className="city">{exp.city}</span>
                           <span className="country">{exp.country}</span>
                         </div>
                       </h5>
                       <h5 className="year">
-                        {moment(exp.startDate).format('MMMM YYYY')} -{' '}
+                        {moment(exp.start).format('MMMM YYYY')} -{' '}
                         {exp.end
                           ? moment(exp.end).format('MMMM YYYY')
                           : 'Present'}
