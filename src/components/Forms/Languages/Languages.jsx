@@ -9,7 +9,7 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { infos } from '../../../constants';
 import { saveLanguages } from '../../../features/personalInfo/PersonalnfoSlice';
-import CardInfo from '../../CardInfos/CardInfo';
+import CardInfoEducation from '../../CardInfosEducation/CardInfoEducation';
 
 export default function Languages({ title, className }) {
   const [language, setLanguage] = React.useState({});
@@ -89,7 +89,7 @@ export default function Languages({ title, className }) {
           Save Languages
         </Button>
       </Flex>
-      <CardInfo cardTitle={title} infos={infos} {...infos} />
+      {/*<CardInfoEducation cardTitle={title} infos={infos} {...infos} />*/}
     </Box>
   );
 }

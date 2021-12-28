@@ -10,7 +10,7 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { infos } from '../../../constants';
 import { saveCertifications } from '../../../features/personalInfo/PersonalnfoSlice';
-import CardInfo from '../../CardInfos/CardInfo';
+import CardInfoEducation from '../../CardInfosEducation/CardInfoEducation';
 
 export default function Certificate({ title, className }) {
   const [isExpired, setIsExpired] = useState(false);
@@ -142,7 +142,7 @@ export default function Certificate({ title, className }) {
           Save Certificate
         </Button>
       </Flex>
-      <CardInfo cardTitle={title} infos={infos} {...infos} />
+      {/*<CardInfoEducation cardTitle={title} infos={infos} {...infos} />*/}
     </Box>
   );
 }

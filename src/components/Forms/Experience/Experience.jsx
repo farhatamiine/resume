@@ -245,7 +245,7 @@ export default function Experience({ title, className }) {
           </form>
         )}
       </Formik>
-      {/* <CardInfo cardTitle={title} infos={infos} {...infos} /> */}
+      {/* <CardInfoEducation cardTitle={title} infos={infos} {...infos} /> */}
     </Box>
   );
 }

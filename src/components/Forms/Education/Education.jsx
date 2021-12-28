@@ -6,14 +6,15 @@ import { Checkbox, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiFillSave, AiOutlineCalendar, AiOutlineClear } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { infos } from '../../../constants';
 import { saveEducation } from '../../../features/personalInfo/PersonalnfoSlice';
-import CardInfo from '../../CardInfos/CardInfo';
+import CardInfoEducation from '../../CardInfosEducation/CardInfoEducation';
 
 export default function Education({ title, className }) {
   const [education, setEducation] = useState({});
   const [isWorking, setIsWorking] = useState(false);
+  const educations = useSelector(state => state.personalInfo.education);
 
   const handleChange = e => {
     setEducation({
@@ -125,6 +126,7 @@ export default function Education({ title, className }) {
       </Flex>
       <Flex align="center" justify="space-between" my="5">
         <Button
+          disabled={educations.length >= 3}
           colorScheme="blue"
           onClick={saveData}
           variant="outline"
@@ -133,7 +135,7 @@ export default function Education({ title, className }) {
           Save Education
         </Button>
       </Flex>
-      <CardInfo cardTitle="Education" infos={infos} {...infos} />
+      <CardInfoEducation setEducation={setEducation} type="Education" />
     </Box>
   );
 }
